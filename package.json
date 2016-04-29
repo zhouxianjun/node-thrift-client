@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/zhouxianjun/node-thrift/issues"
   },
-  "homepage": "https://github.com/zhouxianjun/node-thrift#readme"
+  "homepage": "https://github.com/zhouxianjun/node-thrift#readme",
+  "dependencies": {
+    "thrift": "^0.9.3"
+  }
 }
