@@ -1,0 +1,24 @@
+{
+  "name": "node-thrift-client",
+  "version": "1.0.0",
+  "description": "apache thrift nodejs client",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhouxianjun/node-thrift.git"
+  },
+  "keywords": [
+    "nodejs",
+    "thrift",
+    "client"
+  ],
+  "author": "Gary (zhouxianjun)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zhouxianjun/node-thrift/issues"
+  },
+  "homepage": "https://github.com/zhouxianjun/node-thrift#readme"
+}
