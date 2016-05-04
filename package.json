@@ -25,6 +25,7 @@
     "generic-pool": "^2.4.2",
     "node-zookeeper-client": "^0.2.2",
     "q": "^1.4.1",
-    "thrift": "^0.9.3"
+    "thrift": "^0.9.3",
+    "tracer": "^0.8.3"
   }
 }

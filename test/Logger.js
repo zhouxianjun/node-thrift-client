@@ -1,8 +1,8 @@
 /**
  * Created with JetBrains Idea.
  * User: Gary
- * Date: 2016/4/29
- * Time: 11:36
+ * Date: 2016/3/28
+ * Time: 10:09
  *                 _ooOoo_
  *                o8888888o
  *                88" . "88
@@ -24,13 +24,20 @@
  *^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
  *           佛祖保佑       永无BUG
  */
-'use strict';
-module.exports = class ThriftServerProviderFactory {
-    constructor() {
-        process.on('exit', () => {this.close()});
+const logger = require('tracer').dailyfile({
+    root:'../logs',
+    format : [
+        "{{timestamp}} <{{title}}>  [{{file}}:{{line}}:{{pos}}] - {{message}}", //default format
+        {
+            error : "{{timestamp}} <{{title}}>  [{{file}}:{{line}}:{{pos}}] - {{message}}\nCall Stack:\n{{stack}}" // error format
+        }
+    ],
+    dateformat : "HH:MM:ss.L",
+    preprocess :  function(data){
+        data.title = data.title.toUpperCase();
+    },
+    transport: function(data){
+        console.log(data.output);
     }
-    allServerAddressList(service, version, type) {
-        throw new ReferenceError('this is interface method.');
-    }
-    close() {}
-};
+});
+module.exports = logger;
