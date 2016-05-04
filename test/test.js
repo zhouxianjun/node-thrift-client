@@ -27,6 +27,7 @@
 'use strict';
 const thrift = require('thrift');
 const PoolInvokerFactory = require('../lib/invoker/factory/PoolInvokerFactory');
+const RandomLoadBalance = require('../lib/loadbalance/RandomLoadBalance');
 const defaultMethods = ['new_seqid', 'seqid'];
 let demo = require('./thrift/Demo');
 let ZookeeperThriftServerProviderFactory = require('../lib/provider/ZookeeperThriftServerProviderFactory');
@@ -39,7 +40,9 @@ client.on('connected', function() {
     providerFactory = new ZookeeperThriftServerProviderFactory(client, new PoolInvokerFactory(thrift.TFramedTransport, thrift.TCompactProtocol), 'demo');
     setTimeout(() => {
         let address = providerFactory.allServerAddressList('Demo', '1.0.0', demo);
-        [...address][0].invoker('say', 'Gary').then(result => {
+        let loadBalance = new RandomLoadBalance();
+        let invoker = loadBalance.selector(address, 'say');
+        invoker.invoker('say', 'Gary').then(result => {
             console.log(`result:${result}`);
         }).catch( err => {
             console.error(err.stack);
