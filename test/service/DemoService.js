@@ -25,6 +25,9 @@
  *           佛祖保佑       永无BUG
  */
 'use strict';
-module.exports = class DemoService extends require('../../lib/ReferenceBean'){
+module.exports = class DemoService extends require('../../lib/ReferenceBean') {
     say() {}
+    get service() {
+        return 'Demo';
+    }
 };

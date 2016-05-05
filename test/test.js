@@ -39,12 +39,11 @@ let providerFactory;
 client.on('connected', function() {
     providerFactory = new ZookeeperThriftServerProviderFactory(client, new PoolInvokerFactory(thrift.TFramedTransport, thrift.TCompactProtocol), 'demo');
     setTimeout(() => {
-        let address = providerFactory.allServerAddressList('Demo', '1.0.0', demo);
-        let loadBalance = new RandomLoadBalance();
-        let invoker = loadBalance.selector(address, 'say');
-        invoker.invoker('say', 'Gary').then(result => {
+        const DemoService = require('../test/service/DemoService');
+        let demoService = new DemoService(providerFactory, demo);
+        demoService.say().then(result => {
             console.log(`result:${result}`);
-        }).catch( err => {
+        }, err => {
             console.error(err.stack);
         });
     }, 2000);
