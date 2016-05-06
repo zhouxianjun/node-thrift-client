@@ -41,9 +41,10 @@ client.on('connected', function() {
     setTimeout(() => {
         const DemoService = require('../test/service/DemoService');
         let demoService = new DemoService(providerFactory, demo);
-        demoService.say().then(result => {
+        demoService.say('GARY').then(result => {
             console.log(`result:${result}`);
         }, err => {
+            console.log('error ~');
             console.error(err.stack);
         });
     }, 2000);
