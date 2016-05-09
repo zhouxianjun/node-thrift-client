@@ -40,10 +40,10 @@ client.on('connected', function() {
     providerFactory = new ZookeeperThriftServerProviderFactory(client, new PoolInvokerFactory(thrift.TFramedTransport, thrift.TCompactProtocol), 'demo');
     setTimeout(() => {
         let thriftClient = new ThriftClient(providerFactory);
-        thriftClient.useFileSystem('E:\\Gary\\working\\node-thrift-client\\test\\service');
+        thriftClient.useFileSystem('./service/');
         setTimeout(() => {
             const DemoService = require('../test/service/DemoService');
-            let demoService = thriftClient.getService(DemoService);
+            let demoService = DemoService.instance();
             demoService.say('GARY').then(result => {
                 console.log(`result:${result}`);
             }, err => {
