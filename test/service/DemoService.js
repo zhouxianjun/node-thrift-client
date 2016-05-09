@@ -28,6 +28,10 @@
 module.exports = class DemoService extends require('../../lib/ReferenceBean') {
     say() {}
     get service() {
+        console.log(super.service);
         return 'Demo';
+    }
+    get type() {
+        return require('../thrift/Demo');
     }
 };
