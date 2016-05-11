@@ -33,15 +33,14 @@ let demo = require('./thrift/Demo');
 let ZookeeperThriftServerProviderFactory = require('../lib/provider/ZookeeperThriftServerProviderFactory');
 var zookeeper = require('node-zookeeper-client');
 
-var client = zookeeper.createClient('localhost:2181');
+var client = zookeeper.createClient('www.cn-face.com:2181');
 client.connect();
 let providerFactory;
 client.on('connected', function() {
     providerFactory = new ZookeeperThriftServerProviderFactory(client, new PoolInvokerFactory(thrift.TFramedTransport, thrift.TCompactProtocol), 'demo');
-    setTimeout(() => {
+    providerFactory.on('init', () => {
         let thriftClient = new ThriftClient(providerFactory);
-        thriftClient.useFileSystem('./service/');
-        setTimeout(() => {
+        thriftClient.on('fileSystemInit', () => {
             const DemoService = require('../test/service/DemoService');
             let demoService = DemoService.instance();
             demoService.say('GARY').then(result => {
@@ -50,8 +49,9 @@ client.on('connected', function() {
                 console.log('error ~');
                 console.error(err.stack);
             });
-        }, 1000);
-    }, 2000);
+        });
+        thriftClient.useFileSystem('./service/');
+    });
 });
 client.on('error', function(err) {
     console.error(err.stack);
