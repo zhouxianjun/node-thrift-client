@@ -25,25 +25,26 @@
  *           佛祖保佑       永无BUG
  */
 'use strict';
-const thrift = require('thrift');
-const PoolInvokerFactory = require('../lib/invoker/factory/PoolInvokerFactory');
-const RandomLoadBalance = require('../lib/loadbalance/RandomLoadBalance');
 const ThriftClient = require('../lib/index');
 let demo = require('./thrift/Demo');
-let ZookeeperThriftServerProviderFactory = require('../lib/provider/ZookeeperThriftServerProviderFactory');
-var zookeeper = require('node-zookeeper-client');
 
-var client = zookeeper.createClient('www.cn-face.com:2181');
+var client = ThriftClient.zookeeper.createClient('www.cn-face.com:2181');
 client.connect();
-let providerFactory;
 client.on('connected', function() {
-    providerFactory = new ZookeeperThriftServerProviderFactory(client, new PoolInvokerFactory(thrift.TFramedTransport, thrift.TCompactProtocol), 'demo');
+    let providerFactory = new ThriftClient.provider.ZookeeperThriftServerProviderFactory(
+        client,
+        new ThriftClient.invoker.factory.PoolInvokerFactory(
+            ThriftClient.thrift.TFramedTransport,
+            ThriftClient.thrift.TCompactProtocol
+        ),
+        'demo'
+    );
     providerFactory.on('init', () => {
         let thriftClient = new ThriftClient(providerFactory);
         thriftClient.on('fileSystemInit', () => {
             const DemoService = require('../test/service/DemoService');
             let demoService = DemoService.instance();
-            demoService.say('GARY').then(result => {
+            demoService.say('Gary').then(result => {
                 console.log(`result:${result}`);
             }, err => {
                 console.log('error ~');
