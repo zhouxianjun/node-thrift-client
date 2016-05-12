@@ -40,16 +40,18 @@ client.on('connected', function() {
         'demo'
     );
     providerFactory.on('init', () => {
-        let thriftClient = new ThriftClient(providerFactory);
+        let thriftClient = new ThriftClient(providerFactory, new ThriftClient.loadBalance.RoundRobinLoadBalance());
         thriftClient.on('fileSystemInit', () => {
             const DemoService = require('../test/service/DemoService');
             let demoService = DemoService.instance();
-            demoService.say('Gary').then(result => {
-                console.log(`result:${result}`);
-            }, err => {
-                console.log('error ~');
-                console.error(err.stack);
-            });
+            for (let i = 0; i < 100; i++) {
+                demoService.say('Gary').then(result => {
+                    console.log(`result<${i}>:${result}`);
+                }, err => {
+                    console.log('error ~');
+                    console.error(err.stack);
+                });
+            }
         });
         thriftClient.useFileSystem('./service/');
     });
