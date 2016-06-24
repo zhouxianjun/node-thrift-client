@@ -23,6 +23,7 @@
   "homepage": "https://github.com/zhouxianjun/node-thrift#readme",
   "dependencies": {
     "generic-pool": "^2.4.2",
+    "merge": "^1.2.0",
     "node-zookeeper-client": "^0.2.2",
     "q": "^1.4.1",
     "thrift": "^0.9.3",
