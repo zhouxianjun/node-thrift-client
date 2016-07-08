@@ -29,10 +29,10 @@ const path = require('path');
 const EventEmitter = require('events');
 const walk = require('walk');
 const merge = require('merge');
-const logger = require('./util/LogUtils').log();
-const Utils = require('./util/Utils');
-const ReferenceBean = require('./ReferenceBean');
-let ThriftServerProviderFactory = require('./provider/ThriftServerProviderFactory');
+const logger = require('./lib/util/LogUtils').log();
+const Utils = require('./lib/util/Utils');
+const ReferenceBean = require('./lib/ReferenceBean');
+let ThriftServerProviderFactory = require('./lib/provider/ThriftServerProviderFactory');
 let instance = null;
 module.exports = class ThriftClient extends EventEmitter {
     constructor(providerFactory, loadBalance = new ThriftClient.loadBalance.RandomLoadBalance()) {
@@ -134,28 +134,28 @@ module.exports = class ThriftClient extends EventEmitter {
     }
     static get invoker() {
         return {
-            AbstractInvoker: require('../lib/invoker/AbstractInvoker'),
-            PoolInvoker: require('../lib/invoker/PoolInvoker'),
+            AbstractInvoker: require('./lib/invoker/AbstractInvoker'),
+            PoolInvoker: require('./lib/invoker/PoolInvoker'),
             factory: {
-                InvokerFactory: require('../lib/invoker/factory/InvokerFactory'),
-                PoolInvokerFactory: require('../lib/invoker/factory/PoolInvokerFactory')
+                InvokerFactory: require('./lib/invoker/factory/InvokerFactory'),
+                PoolInvokerFactory: require('./lib/invoker/factory/PoolInvokerFactory')
             }
         };
     }
     static get loadBalance() {
         return {
-            AbstractLoadBalance: require('../lib/loadbalance/AbstractLoadBalance'),
-            RandomLoadBalance: require('../lib/loadbalance/RandomLoadBalance'),
-            RoundRobinLoadBalance: require('../lib/loadbalance/RoundRobinLoadBalance')
+            AbstractLoadBalance: require('./lib/loadbalance/AbstractLoadBalance'),
+            RandomLoadBalance: require('./lib/loadbalance/RandomLoadBalance'),
+            RoundRobinLoadBalance: require('./lib/loadbalance/RoundRobinLoadBalance')
         };
     }
     static get provider() {
         return {
             ThriftServerProviderFactory: ThriftServerProviderFactory,
-            ZookeeperThriftServerProviderFactory: require('../lib/provider/ZookeeperThriftServerProviderFactory')
+            ZookeeperThriftServerProviderFactory: require('./lib/provider/ZookeeperThriftServerProviderFactory')
         };
     }
     static get logger() {
-        return require('./util/LogUtils');
+        return require('./lib/util/LogUtils');
     }
 };

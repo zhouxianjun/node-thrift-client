@@ -25,7 +25,7 @@
  *           佛祖保佑       永无BUG
  */
 'use strict';
-const ThriftClient = require('../lib/index');
+const ThriftClient = require('../index');
 let demo = require('./thrift/Demo');
 
 var client = ThriftClient.zookeeper.createClient('127.0.0.1:2181');
