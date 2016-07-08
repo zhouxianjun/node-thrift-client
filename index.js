@@ -158,4 +158,7 @@ module.exports = class ThriftClient extends EventEmitter {
     static get logger() {
         return require('./lib/util/LogUtils');
     }
+    static get referenceBean() {
+        return ReferenceBean;
+    }
 };
