@@ -35,7 +35,10 @@ client.on('connected', function() {
         client,
         new ThriftClient.invoker.factory.PoolInvokerFactory(
             ThriftClient.thrift.TFramedTransport,
-            ThriftClient.thrift.TCompactProtocol
+            ThriftClient.thrift.TCompactProtocol,
+            100,
+            18000,
+            1000 * 30 * 3
         ),
         'demo'
     );
