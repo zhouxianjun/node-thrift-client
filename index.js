@@ -161,4 +161,9 @@ module.exports = class ThriftClient extends EventEmitter {
     static get referenceBean() {
         return ReferenceBean;
     }
+    static get ServerRegister() {
+        return {
+            zk: require('./lib/ZookeeperThriftServerRegister')
+        };
+    }
 };

@@ -26,12 +26,13 @@
  */
 'use strict';
 const ThriftClient = require('../index');
+const Server = ThriftClient.ServerRegister.zk;
 let demo = require('./thrift/Demo');
 
 var client = ThriftClient.zookeeper.createClient('127.0.0.1:2181');
 client.connect();
 client.on('connected', function() {
-    let providerFactory = new ThriftClient.provider.ZookeeperThriftServerProviderFactory(
+    /*let providerFactory = new ThriftClient.provider.ZookeeperThriftServerProviderFactory(
         client,
         new ThriftClient.invoker.factory.PoolInvokerFactory(
             ThriftClient.thrift.TFramedTransport,
@@ -61,6 +62,11 @@ client.on('connected', function() {
             }
         });
         thriftClient.useFileSystem('./service/');
+    });*/
+    
+    let server = new Server(client);
+    server.on('ready', () => {
+        server.loadFiles('./server/');
     });
 });
 client.on('error', function(err) {

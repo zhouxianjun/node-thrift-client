@@ -22,11 +22,13 @@
   },
   "homepage": "https://github.com/zhouxianjun/node-thrift-client#readme",
   "dependencies": {
+    "co": "^4.6.0",
     "generic-pool": "^2.4.2",
     "merge": "^1.2.0",
     "node-zookeeper-client": "^0.2.2",
     "q": "^1.4.1",
     "thrift": "^0.9.3",
+    "thunkify": "^2.1.2",
     "tracer": "^0.8.3",
     "walk": "^2.3.9",
     "watch": "^0.18.0"
