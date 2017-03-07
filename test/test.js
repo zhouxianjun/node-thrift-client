@@ -65,9 +65,7 @@ client.on('connected', function() {
     });*/
     
     let server = new Server(client);
-    server.on('ready', () => {
-        server.loadFiles('./server/');
-    });
+    server.load('./server/');
 });
 client.on('error', function(err) {
     console.error(err.stack);
